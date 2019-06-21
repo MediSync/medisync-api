@@ -13,6 +13,9 @@ const app = express();
 const main = express();
 
 const usersCollection = 'users';
+const patientCollection = 'patient';
+const profesionalCollection = 'profesional';
+const organizationCollection = 'organization';
 
 main.use('/api/v1', app);
 main.use(bodyParser.json());
@@ -21,6 +24,8 @@ main.use(bodyParser.urlencoded({ extended: false }));
 // webApi is your functions name, and you will pass main as 
 // a parameter
 export const webApi = functions.https.onRequest(main);
+
+// API USERS
 
 // Add new user
 app.post('/users/:userId', (req, res) => {
@@ -55,4 +60,31 @@ app.delete('/users/:userId', (req, res) => {
     firebaseHelper.firestore
         .deleteDocument(db, usersCollection, req.params.userId);
     res.send('Document deleted');
+})
+
+// API PATIENTS
+
+// View a patient
+app.get('/patient/:patientId', (req, res) => {
+    firebaseHelper.firestore
+        .getDocument(db, patientCollection, req.params.patientId)
+        .then(doc => res.status(200).send(doc));
+})
+
+// API PROFESIONAL
+
+// View a profesional
+app.get('/profesional/:profesionalId', (req, res) => {
+    firebaseHelper.firestore
+        .getDocument(db, profesionalCollection, req.params.profesionalId)
+        .then(doc => res.status(200).send(doc));
+})
+
+// API ORGANIZATION
+
+// View a organization
+app.get('/organization/:organizationId', (req, res) => {
+    firebaseHelper.firestore
+        .getDocument(db, organizationCollection, req.params.organizationId)
+        .then(doc => res.status(200).send(doc));
 })
