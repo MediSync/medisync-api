@@ -71,7 +71,21 @@ app.get('/patient/:patientId', (req, res) => {
         .then(doc => res.status(200).send(doc));
 })
 
+// View all patient
+app.get('/patient', (req, res) => {
+    firebaseHelper.firestore
+        .backup(db, patientCollection)
+        .then(data => res.status(200).send(data))
+})
+
 // API PROFESIONAL
+
+// Add new profesional
+app.post('/profesional/:profesionalId', (req, res) => {
+    firebaseHelper.firestore
+        .createDocumentWithID(db, profesionalCollection, req.params.profesionalId, req.body);
+    res.send('1');
+})
 
 // View a profesional
 app.get('/profesional/:profesionalId', (req, res) => {
@@ -80,11 +94,32 @@ app.get('/profesional/:profesionalId', (req, res) => {
         .then(doc => res.status(200).send(doc));
 })
 
+// View all profesional
+app.get('/profesional', (req, res) => {
+    firebaseHelper.firestore
+        .backup(db, profesionalCollection)
+        .then(data => res.status(200).send(data))
+})
+
 // API ORGANIZATION
+
+// Add new organization
+app.post('/organization/:organizationId', (req, res) => {
+    firebaseHelper.firestore
+        .createDocumentWithID(db, organizationCollection, req.params.organizationId, req.body);
+    res.send('1');
+})
 
 // View a organization
 app.get('/organization/:organizationId', (req, res) => {
     firebaseHelper.firestore
         .getDocument(db, organizationCollection, req.params.organizationId)
         .then(doc => res.status(200).send(doc));
+})
+
+// View all organization
+app.get('/organization', (req, res) => {
+    firebaseHelper.firestore
+        .backup(db, organizationCollection)
+        .then(data => res.status(200).send(data))
 })
