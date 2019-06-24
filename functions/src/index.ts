@@ -64,6 +64,13 @@ app.delete('/users/:userId', (req, res) => {
 
 // API PATIENTS
 
+// Add new patient
+app.post('/patient/:patientId', (req, res) => {
+    firebaseHelper.firestore
+        .createDocumentWithID(db, patientCollection, req.params.patientId, req.body);
+    res.send('1');
+})
+
 // View a patient
 app.get('/patient/:patientId', (req, res) => {
     firebaseHelper.firestore
