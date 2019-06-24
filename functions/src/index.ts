@@ -17,6 +17,7 @@ const patientCollection = 'patient';
 const profesionalCollection = 'profesional';
 const organizationCollection = 'organization';
 
+
 main.use('/api/v1', app);
 main.use(bodyParser.json());
 main.use(bodyParser.urlencoded({ extended: false }));
@@ -82,6 +83,20 @@ app.get('/patient/:patientId', (req, res) => {
 app.get('/patient', (req, res) => {
     firebaseHelper.firestore
         .backup(db, patientCollection)
+        .then(data => res.status(200).send(data))
+})
+
+// View all patient
+app.get('/patient_history', (req, res) => {
+    firebaseHelper.firestore
+        .backup(db, patientCollection, 'historial')
+        .then(data => res.status(200).send(data))
+})
+
+// View all patient
+app.get('/patient_range_of_motion', (req, res) => {
+    firebaseHelper.firestore
+        .backup(db, patientCollection, 'range_of_motion')
         .then(data => res.status(200).send(data))
 })
 
