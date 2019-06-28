@@ -72,6 +72,15 @@ app.post('/patient/:patientId', (req, res) => {
     res.send('1');
 })
 
+app.post('/patient_history/:patientId', (req, res) => {
+    firebaseHelper.firestore
+        .addSubCollection(db, req.params.patientId, req.body, patientCollection, 'historial');
+    res.send('1');
+})
+
+
+//addSubCollection(db: any, key: string, subData: Object, collectionName: string, subCollection: string)
+
 // View a patient
 app.get('/patient/:patientId', (req, res) => {
     firebaseHelper.firestore
